@@ -9,19 +9,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var flipCount = 0
+    var flipCount = 0{
+        didSet{
+            flipCountLabel.text = String(flipCount)
+        }
+    }
+    
+    var emojiChoices = ["👻","🎃","👻","🎃","👻","🎃"]
     
     @IBOutlet weak var flipCountLabel: UILabel!
-    @IBAction func touchSecondCard(_ sender: UIButton) {
-        flipCount += 1
-        flipCountLabel.text = String(flipCount)
-        flipCard(withEmoji: "🎃", on: sender)
-    }
+    
+    @IBOutlet var cardButtons: [UIButton]!
+    
     
     @IBAction func touchCard(_ sender: UIButton) {
         flipCount += 1
-        flipCountLabel.text = String(flipCount)
-        flipCard(withEmoji: "👻", on: sender)
+//        flipCard(withEmoji: "👻", on: sender)
+        if let cardNumber = cardButtons.index(of: sender){
+            print("card Number = \(cardNumber)")
+            flipCard(withEmoji: emojiChoices[cardNumber], on: sender)
+        }
+        else{
+            print("sorry")
+        }
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
